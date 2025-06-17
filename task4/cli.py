@@ -1,4 +1,4 @@
-
+# Decorator to handle user input errors (KeyError, ValueError, IndexError)
 def input_error(func):
     def inner(*args, **kwargs):
         try:
@@ -10,35 +10,44 @@ def input_error(func):
         except IndexError:
             return "Enter user name."
     return inner
-
+# Split the user input into command and arguments
 def parse_input(user_input):
     cmd, *args = user_input.split()
     cmd = cmd.strip().lower()
     return cmd, args
 
+# Add new contact with name and phone
 @input_error
 def add_contact(args, contacts):
+     # If not enough arguments, raise error
     if len(args) < 2:
         raise ValueError
     name, phone = args
+    # Save name and phone to contacts
     contacts[name] = phone
     return "Contact added."
 
+# Change phone number of existing contact
 @input_error
 def change_contact(args, contacts):
     if len(args) < 2:
+    # If not enough arguments, raise error
         raise ValueError
     name, phone = args
+    # Save name and phone to contacts
     contacts[name] = phone
     return "Contact updated."
 
+# Show the phone number of a contact
 @input_error
 def show_phone(args, contacts):
     if len(args) < 1:
         raise IndexError
+    # Return contact's phone number or message
     name = args[0]
     return contacts.get(name, "Contact not found.")
 
+# Show all contacts and their phone numbers
 @input_error
 def show_all(contacts):
     if not contacts:
@@ -74,7 +83,7 @@ def main():
             print(show_all(contacts))
         else:
             print("Invalid command.")
-
+# Run the program
 if __name__ == "__main__":
     main()
 
