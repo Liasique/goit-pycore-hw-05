@@ -18,20 +18,20 @@
 """
 
 def caching_fibonacci():
-    cache = {}
+    cache = {} #Створити порожній словник cache
 
     def fibonacci(n):
         if n <= 0:
-            return 0
+            return 0  # Case: Fibonacci of 0 is 0
         elif n == 1:
-            return 1
+            return 1 # Case: Fibonacci of 1 is 1
         if n in cache:
-            return cache[n]
-
-        cache[n] = fibonacci(n - 1) + fibonacci(n - 2)
+            return cache[n]  # If result is already in cache -> return it
+        # If not in cache, calculate and save it in cache
+        cache[n] = fibonacci(n - 1) + fibonacci(n - 2) 
         return cache[n]
 
-    return fibonacci
+    return fibonacci  # Return the inner function
 
 # Отримуємо функцію fibonacci
 fib = caching_fibonacci()
