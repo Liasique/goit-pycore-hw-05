@@ -1,14 +1,26 @@
 #TODO: find all REAL numbers in the text and calculate their sum
 
 import re
+
+from typing import Callable
+
 #def generator_numbers(text: str)
-"""
-повинна приймати рядок як аргумент і повертати генератор, що ітерує по всіх дійсних числах у тексті.
+"""повинна приймати рядок як аргумент і повертати генератор, що ітерує по всіх дійсних числах у тексті.
  Дійсні числа у тексті вважаються записаними без помилок і чітко відокремлені пробілами з обох боків."""
+
+def generator_numbers(text: str):
+    pattern = r'\b\d+\.\d+\b'  # Регулярний вираз для пошуку дійсних чисел
+    numbers = re.findall(pattern, text)
+    for number in numbers:
+        yield float(number)  # повертаємо як float, один за одним
     
 #def sum_profit(text: str, func: Callable)
 """має використовувати генератор generator_numbers для обчислення загальної суми чисел у вхідному рядку
  та приймати його як аргумент при виклику."""
+
+def sum_profit(text, generator_numbers):
+    return sum(generator_numbers(text))  
+
 
 #Рекомендації для виконання:
 """Використовуйте регулярні вирази для ідентифікації дійсних чисел у тексті, з урахуванням, що числа 
